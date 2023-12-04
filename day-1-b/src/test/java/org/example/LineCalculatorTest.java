@@ -22,38 +22,12 @@ class LineCalculatorTest {
     }
 
     @Test
-    void calculate_noDigits() {
-        when(stringFilter.digitsOnly("input")).thenReturn("");
+    void calculate() {
+        when(stringFilter.firstDigit("input")).thenReturn(3);
+        when(stringFilter.lastDigit("input")).thenReturn(5);
 
         int actual = underTest.calculate("input");
 
-        assertThat(actual).isEqualTo(0);
-    }
-
-    @Test
-    void calculate_oneDigit() {
-        when(stringFilter.digitsOnly("input")).thenReturn("3");
-
-        int actual = underTest.calculate("input");
-
-        assertThat(actual).isEqualTo(33);
-    }
-
-    @Test
-    void calculate_twoDigits() {
-        when(stringFilter.digitsOnly("input")).thenReturn("78");
-
-        int actual = underTest.calculate("input");
-
-        assertThat(actual).isEqualTo(78);
-    }
-
-    @Test
-    void calculate_threeDigits() {
-        when(stringFilter.digitsOnly("input")).thenReturn("456");
-
-        int actual = underTest.calculate("input");
-
-        assertThat(actual).isEqualTo(46);
+        assertThat(actual).isEqualTo(35);
     }
 }
