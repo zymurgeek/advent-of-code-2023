@@ -1,12 +1,11 @@
 package com.example.day2a;
 
 import com.example.day2a.model.Game;
-import com.example.day2a.model.Subset;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+@Component
 public class GamesAnalyzer {
-    public int sumIdsOfPossibleGamesWithCubesInBag(List<Game> games, Subset subset) {
-        return 0;
+    public boolean isGamePossibleGivenCubesInBag(Game game, int redCubes, int greenCubes, int blueCubes) {
+        return false;
     }
 }

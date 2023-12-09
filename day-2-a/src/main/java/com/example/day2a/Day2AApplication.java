@@ -1,13 +1,15 @@
 package com.example.day2a;
 
 import com.example.day2a.model.Game;
-import com.example.day2a.model.Subset;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -22,10 +24,16 @@ public class Day2AApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		List<Game> games = parser.parse("src/main/resources/input.txt");
-		int sumOfPossibleGameIds = analyzer.sumIdsOfPossibleGamesWithCubesInBag(games, new Subset(12, 13, 14));
 
+		Path path = FileSystems.getDefault().getPath("src/main/resources", "input.txt");
+		int sumOfPossibleGameIds;
+		try (Stream<String> lines = Files.lines(path)) {
+				sumOfPossibleGameIds = lines
+						.map(parser::parseGameLine)
+						.filter(g -> analyzer.isGamePossibleGivenCubesInBag(g, 12, 13, 14))
+						.mapToInt(Game::getId)
+						.sum();
+		}
 		System.out.println("Sum of all possible game IDs = " + sumOfPossibleGameIds);
 	}
 }
