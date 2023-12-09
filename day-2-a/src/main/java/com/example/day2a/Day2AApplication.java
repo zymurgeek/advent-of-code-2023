@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class Day2AApplication implements CommandLineRunner {
 
 	private final InputParser parser;
-	private final GamesAnalyzer analyzer;
+	private final GameAnalyzer analyzer;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Day2AApplication.class, args);

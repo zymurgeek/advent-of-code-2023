@@ -13,8 +13,8 @@ public class Game {
 
     public void addDrawnCubeCount(String color, int count) {
 
-        Integer maximumCubeCount = maximumCubeCounts.get(color);
-        if (null == maximumCubeCount || count > maximumCubeCount) {
+        Integer maximumCubeCount = maximumCubeCounts.getOrDefault(color, 0);
+        if (count > maximumCubeCount) {
             maximumCubeCounts.put(color, count);
         }
     }
