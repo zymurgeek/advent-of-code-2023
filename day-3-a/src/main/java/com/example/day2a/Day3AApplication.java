@@ -25,6 +25,13 @@ public class Day3AApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Path path = FileSystems.getDefault().getPath("src/main/resources", "input.txt");
+		/*
+		set last, current, and next lines to null
+		while there are lines
+		move current -> last
+		move next -> current
+		read a line -> next
+		 */
 		int sumOfGamePowers;
 		try (Stream<String> lines = Files.lines(path)) {
 				sumOfGamePowers = lines
