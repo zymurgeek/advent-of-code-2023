@@ -5,10 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.stream.Stream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -23,10 +21,9 @@ public class Day3AApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Path path = FileSystems.getDefault().getPath("src/main/resources", "input.txt");
 		int sumOfGamePowers;
-		try (Stream<String> lines = Files.lines(path)) {
-			sumOfGamePowers = solver.solve(lines);
+		try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/input.txt"))) {
+			sumOfGamePowers = solver.solve(reader);
 		}
 		System.out.println("Sum of all game powers = " + sumOfGamePowers);
 	}
