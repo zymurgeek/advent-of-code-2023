@@ -18,4 +18,17 @@ public class Game {
             maximumCubeCounts.put(color, count);
         }
     }
+
+    public int getPower() {
+
+        if (maximumCubeCounts.isEmpty()) {
+            return 0;
+        }
+
+        int power = 1;
+        for (int maximumCubeCount : maximumCubeCounts.values()) {
+            power *= maximumCubeCount;
+        }
+        return power;
+    }
 }

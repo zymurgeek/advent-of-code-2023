@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 public class Day2BApplication implements CommandLineRunner {
 
 	private final InputParser parser;
-	private final GameAnalyzer analyzer;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Day2BApplication.class, args);
@@ -26,15 +25,15 @@ public class Day2BApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Path path = FileSystems.getDefault().getPath("src/main/resources", "input.txt");
-		int sumOfPossibleGameIds;
+		int sumOfGamePowers;
 		try (Stream<String> lines = Files.lines(path)) {
-				sumOfPossibleGameIds = lines
+				sumOfGamePowers = lines
 						.map(parser::parseGameLine)
 						.peek(System.out::println)
-						.filter(g -> analyzer.isGamePossibleGivenCubesInBag(g, 12, 13, 14))
-						.mapToInt(Game::getId)
+						.mapToInt(Game::getPower)
+						.peek(System.out::println)
 						.sum();
 		}
-		System.out.println("Sum of all possible game IDs = " + sumOfPossibleGameIds);
+		System.out.println("Sum of all game powers = " + sumOfGamePowers);
 	}
 }
