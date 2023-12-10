@@ -1,6 +1,6 @@
-package com.example.day2a;
+package com.example.day3a;
 
-import com.example.day2a.model.Game;
+import com.example.day3a.model.Game;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;

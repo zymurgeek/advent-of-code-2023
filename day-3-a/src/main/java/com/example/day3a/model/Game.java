@@ -1,4 +1,4 @@
-package com.example.day2a.model;
+package com.example.day3a.model;
 
 import lombok.Data;
 
