@@ -17,19 +17,15 @@ public class Solver {
     public int solve(BufferedReader reader) throws IOException {
 
         int result = 0;
-        String previousLine = null;
+        String previousLine;
         String currentLine = null;
         String nextLine = reader.readLine();
-        String line;
-        while (null != (line = reader.readLine())) {
+        do {
             previousLine = currentLine;
             currentLine = nextLine;
-            nextLine = line;
+            nextLine = reader.readLine();
             result += lineProcessor.processLine(previousLine, currentLine, nextLine);
-        }
-        previousLine = currentLine;
-        currentLine = nextLine;
-        result += lineProcessor.processLine(previousLine, currentLine, null);
+        } while (null != nextLine);
         return result;
     }
 }
