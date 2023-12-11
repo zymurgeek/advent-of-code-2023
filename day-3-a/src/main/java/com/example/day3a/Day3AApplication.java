@@ -21,10 +21,10 @@ public class Day3AApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		int sumOfGamePowers;
+		int sumOfPartNumbers;
 		try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/input.txt"))) {
-			sumOfGamePowers = solver.solve(reader);
+			sumOfPartNumbers = solver.solve(reader);
 		}
-		System.out.println("Sum of all game powers = " + sumOfGamePowers);
+		System.out.println("Sum of all game powers = " + sumOfPartNumbers);
 	}
 }
