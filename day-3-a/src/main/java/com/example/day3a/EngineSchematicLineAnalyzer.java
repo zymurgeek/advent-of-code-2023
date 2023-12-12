@@ -24,7 +24,7 @@ public class EngineSchematicLineAnalyzer {
         scanner.useDelimiter("\\D+");
         List<MatchResult> matches = scanner.findAll("\\d+").toList();
         for (MatchResult match : matches) {
-            if (partNumberAnalyzer.isPartNumber(match,  currentLine, previousLine, nextLine)) {
+            if (partNumberAnalyzer.isPartNumber(match, previousLine, currentLine, nextLine)) {
                 String partNumberString = currentLine.substring(match.start(), match.end());
                 int partNumber = Integer.parseInt(partNumberString);
                 result += partNumber;

@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -32,21 +31,21 @@ class EngineSchematicLineAnalyzerTest {
 
     @Test
     void sumPartNumbers_onePartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("b123b"), eq("a"), eq("c"))).thenReturn(true);
+        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b"), eq("c"))).thenReturn(true);
 
         assertThat(underTest.sumPartNumbers("a", "b123b", "c")).isEqualTo(123);
     }
 
     @Test
     void sumPartNumbers_oneNonPartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("b123b"), eq("a"), eq("c"))).thenReturn(false);
+        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b"), eq("c"))).thenReturn(false);
 
         assertThat(underTest.sumPartNumbers("a", "b123b", "c")).isEqualTo(0);
     }
 
     @Test
     void sumPartNumbers_twoNumbers_secondIsPartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("b123b456b"), eq("a"), eq("c")))
+        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b456b"), eq("c")))
                 .thenReturn(false).thenReturn(true);
 
         assertThat(underTest.sumPartNumbers("a", "b123b456b", "c")).isEqualTo(456);
