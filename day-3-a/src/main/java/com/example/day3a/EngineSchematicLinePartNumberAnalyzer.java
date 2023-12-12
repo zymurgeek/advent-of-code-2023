@@ -13,9 +13,12 @@ public class EngineSchematicLinePartNumberAnalyzer {
     public boolean isPartNumber(MatchResult match, String previousLine, String currentLine, String nextLine) {
 
         if (match.start() > 0) {
-           if (isSymbol(previousLine.charAt(match.start()-1))) {
-               return true;
-           }
+            if (previousLine != null && isSymbol(previousLine.charAt(match.start() - 1))) {
+                return true;
+            }
+            if (nextLine != null && isSymbol(nextLine.charAt(match.start() - 1))) {
+                return true;
+            }
         }
         return false;
     }

@@ -20,7 +20,7 @@ class EngineSchematicLinePartNumberAnalyzerTest {
     }
 
     @Test
-    void isPartNumber_noSymbols_noPreviousAndNext() {
+    void isPartNumber_noSymbols_noEastOrWest_noPreviousAndNext() {
         MatchResult match = new TestMatchResult(0,1);
         String previousLine = null;
         String currentLine = "1";
@@ -30,11 +30,31 @@ class EngineSchematicLinePartNumberAnalyzerTest {
     }
 
     @Test
-    void isPartNumber_noSymbols_withPreviousAndNext() {
+    void isPartNumber_noSymbols_noEastOrWest_withPreviousAndNext() {
         MatchResult match = new TestMatchResult(0,1);
         String previousLine = ".";
         String currentLine = "1";
         String nextLine = ".";
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+    }
+
+    @Test
+    void isPartNumber_noSymbols_withEastOrWest_noPreviousAndNext() {
+        MatchResult match = new TestMatchResult(1,2);
+        String previousLine = null;
+        String currentLine = ".1.";
+        String nextLine = null;
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+    }
+
+    @Test
+    void isPartNumber_noSymbols_withEastOrWest_withPreviousAndNext() {
+        MatchResult match = new TestMatchResult(1,2);
+        String previousLine = "...";
+        String currentLine = ".1.";
+        String nextLine = "...";
 
         assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
     }
@@ -45,6 +65,16 @@ class EngineSchematicLinePartNumberAnalyzerTest {
         String previousLine = "@..";
         String currentLine = ".1.";
         String nextLine = "...";
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolSouthWest() {
+        MatchResult match = new TestMatchResult(1,2);
+        String previousLine = "...";
+        String currentLine = ".1.";
+        String nextLine = "@..";
 
         assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
     }
