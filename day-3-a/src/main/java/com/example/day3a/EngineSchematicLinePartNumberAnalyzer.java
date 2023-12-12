@@ -19,6 +19,9 @@ public class EngineSchematicLinePartNumberAnalyzer {
             if (nextLine != null && isSymbol(nextLine.charAt(match.start() - 1))) {
                 return true;
             }
+            if (isSymbol(currentLine.charAt(match.start() - 1))) {
+                return true;
+            }
         }
         if (previousLine != null && match.end() < previousLine.length()
                 && isSymbol(previousLine.charAt(match.end()))) {
@@ -26,6 +29,10 @@ public class EngineSchematicLinePartNumberAnalyzer {
         }
         if (nextLine != null && match.end() < nextLine.length()
                 && isSymbol(nextLine.charAt(match.end()))) {
+            return true;
+        }
+        if (match.end() < currentLine.length()
+            && isSymbol(currentLine.charAt(match.end()))) {
             return true;
         }
         return false;
