@@ -20,8 +20,13 @@ public class EngineSchematicLinePartNumberAnalyzer {
                 return true;
             }
         }
-        if (previousLine != null && match.end() < previousLine.length()) {
-            return isSymbol(previousLine.charAt(match.end()));
+        if (previousLine != null && match.end() < previousLine.length()
+                && isSymbol(previousLine.charAt(match.end()))) {
+            return true;
+        }
+        if (nextLine != null && match.end() < nextLine.length()
+                && isSymbol(nextLine.charAt(match.end()))) {
+            return true;
         }
         return false;
     }
