@@ -6,15 +6,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 @Component
-public class Solver {
+public class EngineSchematicAnalyzer {
 
-    private final LineProcessor lineProcessor;
+    private final EngineSchematicLineAnalyzer engineSchematicLineAnalyzer;
 
-    public Solver(LineProcessor lineProcessor) {
-        this.lineProcessor = lineProcessor;
+    public EngineSchematicAnalyzer(EngineSchematicLineAnalyzer engineSchematicLineAnalyzer) {
+        this.engineSchematicLineAnalyzer = engineSchematicLineAnalyzer;
     }
 
-    public int solve(BufferedReader reader) throws IOException {
+    public int sumPartNumbers(BufferedReader reader) throws IOException {
 
         int result = 0;
         String previousLine;
@@ -24,7 +24,7 @@ public class Solver {
             previousLine = currentLine;
             currentLine = nextLine;
             nextLine = reader.readLine();
-            result += lineProcessor.processLine(previousLine, currentLine, nextLine);
+            result += engineSchematicLineAnalyzer.sumPartNumbers(previousLine, currentLine, nextLine);
         } while (null != nextLine);
         return result;
     }

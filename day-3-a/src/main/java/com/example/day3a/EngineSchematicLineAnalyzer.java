@@ -7,8 +7,8 @@ import java.util.Scanner;
 import java.util.regex.MatchResult;
 
 @Component
-public class LineProcessor {
-    public int processLine(String previousLine, String currentLine, String nextLine) {
+public class EngineSchematicLineAnalyzer {
+    public int sumPartNumbers(String previousLine, String currentLine, String nextLine) {
         int result = 0;
         /*
         find the first number in the current line.  Get start and end index.

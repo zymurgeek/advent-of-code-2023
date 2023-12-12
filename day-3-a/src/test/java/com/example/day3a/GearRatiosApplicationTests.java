@@ -14,10 +14,10 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureWebMvc
-class Day3AApplicationTests {
+class GearRatiosApplicationTests {
 
 	@MockBean
-	Solver solver;
+	EngineSchematicAnalyzer engineSchematicAnalyzer;
 
 	@Captor
 	ArgumentCaptor<BufferedReader> captor;
@@ -28,8 +28,8 @@ class Day3AApplicationTests {
 
 	@Test
 	void run() throws Exception {
-		Day3AApplication underTest = new Day3AApplication(solver);
-		when(solver.solve(captor.capture())).thenReturn(7);
+		GearRatiosApplication underTest = new GearRatiosApplication(engineSchematicAnalyzer);
+		when(engineSchematicAnalyzer.sumPartNumbers(captor.capture())).thenReturn(7);
 
 		underTest.run(null);
 

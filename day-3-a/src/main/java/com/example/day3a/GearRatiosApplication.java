@@ -10,12 +10,12 @@ import java.io.FileReader;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class Day3AApplication implements CommandLineRunner {
+public class GearRatiosApplication implements CommandLineRunner {
 
-	private final Solver solver;
+	private final EngineSchematicAnalyzer engineSchematicAnalyzer;
 
 	public static void main(String[] args) {
-		SpringApplication.run(Day3AApplication.class, args);
+		SpringApplication.run(GearRatiosApplication.class, args);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Day3AApplication implements CommandLineRunner {
 
 		int sumOfPartNumbers;
 		try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/input.txt"))) {
-			sumOfPartNumbers = solver.solve(reader);
+			sumOfPartNumbers = engineSchematicAnalyzer.sumPartNumbers(reader);
 		}
 		System.out.println("Sum of all game powers = " + sumOfPartNumbers);
 	}
