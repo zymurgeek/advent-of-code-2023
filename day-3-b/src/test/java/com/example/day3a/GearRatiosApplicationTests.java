@@ -29,7 +29,7 @@ class GearRatiosApplicationTests {
 	@Test
 	void run() throws Exception {
 		GearRatiosApplication underTest = new GearRatiosApplication(engineSchematicAnalyzer);
-		when(engineSchematicAnalyzer.sumPartNumbers(captor.capture())).thenReturn(7);
+		when(engineSchematicAnalyzer.sumGearRatios(captor.capture())).thenReturn(7);
 
 		underTest.run(null);
 

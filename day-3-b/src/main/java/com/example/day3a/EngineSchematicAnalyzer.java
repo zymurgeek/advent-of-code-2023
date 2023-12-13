@@ -14,7 +14,7 @@ public class EngineSchematicAnalyzer {
         this.engineSchematicLineAnalyzer = engineSchematicLineAnalyzer;
     }
 
-    public int sumPartNumbers(BufferedReader reader) throws IOException {
+    public int sumGearRatios(BufferedReader reader) throws IOException {
 
         int result = 0;
         String previousLine;

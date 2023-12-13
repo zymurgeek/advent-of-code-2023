@@ -21,10 +21,10 @@ public class GearRatiosApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		int sumOfPartNumbers;
+		int sumOfGearRatios;
 		try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/input.txt"))) {
-			sumOfPartNumbers = engineSchematicAnalyzer.sumPartNumbers(reader);
+			sumOfGearRatios = engineSchematicAnalyzer.sumGearRatios(reader);
 		}
-		System.out.println("Sum of all game powers = " + sumOfPartNumbers);
+		System.out.println("Sum of all gear ratios = " + sumOfGearRatios);
 	}
 }

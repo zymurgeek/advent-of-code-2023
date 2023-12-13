@@ -30,7 +30,7 @@ class EngineSchematicAnalyzerTest {
     void solve_noInput() throws IOException {
         when(engineSchematicLineAnalyzer.sumPartNumbers(null, null, null)).thenReturn(2);
 
-        int actual = underTest.sumPartNumbers(new BufferedReader(new StringReader("")));
+        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("")));
 
        assertThat(actual).isEqualTo(2);
     }
@@ -39,7 +39,7 @@ class EngineSchematicAnalyzerTest {
     void solve_oneLine() throws IOException {
         when(engineSchematicLineAnalyzer.sumPartNumbers(null, "one", null)).thenReturn(5);
 
-        int actual = underTest.sumPartNumbers(new BufferedReader(new StringReader("one")));
+        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("one")));
 
         assertThat(actual).isEqualTo(5);
     }
@@ -51,7 +51,7 @@ class EngineSchematicAnalyzerTest {
         when(engineSchematicLineAnalyzer.sumPartNumbers("one", "two", "three")).thenReturn(5);
         when(engineSchematicLineAnalyzer.sumPartNumbers( "two", "three", null)).thenReturn(8);
 
-        int actual = underTest.sumPartNumbers(new BufferedReader(new StringReader("one\ntwo\nthree")));
+        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("one\ntwo\nthree")));
 
         assertThat(actual).isEqualTo(16);
     }
