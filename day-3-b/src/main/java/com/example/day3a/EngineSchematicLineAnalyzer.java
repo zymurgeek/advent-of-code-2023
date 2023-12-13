@@ -1,5 +1,6 @@
 package com.example.day3a;
 
+import com.example.day3a.model.EngineSchematicLine;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +14,14 @@ public class EngineSchematicLineAnalyzer {
 
     private final EngineSchematicLinePartNumberAnalyzer partNumberAnalyzer;
 
-    public int sumPartNumbers(String previousLine, String currentLine, String nextLine) {
+    public int sumGearRatios(EngineSchematicLine previousLine, EngineSchematicLine currentLine, EngineSchematicLine nextLine) {
         int result = 0;
+        /*
         StringBuffer editedCurrentLine = new StringBuffer(currentLine);
         /*
         - find all numbers in the current line.
         - sum each number that's next to a symbol
-         */
+         * /
         Scanner scanner = new Scanner(currentLine);
         scanner.useDelimiter("\\D+");
         List<MatchResult> matches = scanner.findAll("\\d+").toList();
@@ -35,6 +37,7 @@ public class EngineSchematicLineAnalyzer {
             }
         }
         System.out.println(editedCurrentLine);
+        */
         return result;
     }
 }

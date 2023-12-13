@@ -31,7 +31,7 @@ class GearRatiosApplicationTests {
 		GearRatiosApplication underTest = new GearRatiosApplication(engineSchematicAnalyzer);
 		when(engineSchematicAnalyzer.sumGearRatios(captor.capture())).thenReturn(7);
 
-		underTest.run(null);
+		underTest.run("");
 
 		assertThat(captor.getValue()).isNotNull();
 	}

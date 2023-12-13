@@ -10,7 +10,7 @@ import java.util.regex.MatchResult;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class EngineSchematicLinePartNumberAnalyzerTest {
+class EngineEngineSchematicLinePartNumberAnalyzerTest {
 
     EngineSchematicLinePartNumberAnalyzer underTest;
 
