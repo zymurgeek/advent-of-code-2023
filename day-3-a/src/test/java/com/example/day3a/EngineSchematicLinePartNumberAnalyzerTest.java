@@ -22,11 +22,9 @@ class EngineSchematicLinePartNumberAnalyzerTest {
     @Test
     void isPartNumber_noSymbols_noEastOrWest_noPreviousAndNext() {
         MatchResult match = new TestMatchResult(0,1);
-        String previousLine = null;
         String currentLine = "1";
-        String nextLine = null;
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+        assertThat(underTest.isPartNumber(match, null, currentLine, null)).isFalse();
     }
 
     @Test
@@ -42,11 +40,9 @@ class EngineSchematicLinePartNumberAnalyzerTest {
     @Test
     void isPartNumber_noSymbols_withEastOrWest_noPreviousAndNext() {
         MatchResult match = new TestMatchResult(1,2);
-        String previousLine = null;
         String currentLine = ".1.";
-        String nextLine = null;
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+        assertThat(underTest.isPartNumber(match, null, currentLine, null)).isFalse();
     }
 
     @Test
@@ -117,6 +113,33 @@ class EngineSchematicLinePartNumberAnalyzerTest {
         String nextLine = "...";
 
         assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolNorthFirst() {
+        MatchResult match = new TestMatchResult(1,4);
+        String previousLine = ".@...";
+        String currentLine = ".123.";
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, null)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolNorthMiddle() {
+        MatchResult match = new TestMatchResult(1,4);
+        String previousLine = "..@..";
+        String currentLine = ".123.";
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, null)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolNorthLast() {
+        MatchResult match = new TestMatchResult(1,4);
+        String previousLine = "...@.";
+        String currentLine = ".123.";
+
+        assertThat(underTest.isPartNumber(match, previousLine, currentLine, null)).isTrue();
     }
 
     @Test

@@ -35,6 +35,16 @@ public class EngineSchematicLinePartNumberAnalyzer {
             && isSymbol(currentLine.charAt(match.end()))) {
             return true;
         }
+        if (previousLine != null && isSymbol(previousLine.charAt(match.start()))) {
+            return true;
+        }
+        if (previousLine != null) {
+            for (int charIndex=match.start(); charIndex < match.end(); ++charIndex) {
+                if (isSymbol(previousLine.charAt(charIndex))) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
