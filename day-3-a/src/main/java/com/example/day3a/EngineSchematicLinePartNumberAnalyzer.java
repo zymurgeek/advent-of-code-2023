@@ -41,6 +41,12 @@ public class EngineSchematicLinePartNumberAnalyzer {
             if (match.start() > 0 && isSymbol(nextLine.charAt(match.start() - 1))) {
                 return true;
             }
+            // South
+            for (int charIndex = match.start(); charIndex < match.end(); ++charIndex) {
+                if (isSymbol(nextLine.charAt(charIndex))) {
+                    return true;
+                }
+            }
             // Southeast
             if (match.end() < nextLine.length() && isSymbol(nextLine.charAt(match.end()))) {
                 return true;

@@ -143,6 +143,33 @@ class EngineSchematicLinePartNumberAnalyzerTest {
     }
 
     @Test
+    void isPartNumber_symbolSouthFirst() {
+        MatchResult match = new TestMatchResult(1,4);
+        String currentLine = ".123.";
+        String nextLine = ".@...";
+
+        assertThat(underTest.isPartNumber(match, null, currentLine, nextLine)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolSouthMiddle() {
+        MatchResult match = new TestMatchResult(1,4);
+        String currentLine = ".123.";
+        String nextLine = "..@..";
+
+        assertThat(underTest.isPartNumber(match, null, currentLine, nextLine)).isTrue();
+    }
+
+    @Test
+    void isPartNumber_symbolSouthLast() {
+        MatchResult match = new TestMatchResult(1,4);
+        String currentLine = ".123.";
+        String nextLine = "...@.";
+
+        assertThat(underTest.isPartNumber(match, null, currentLine, nextLine)).isTrue();
+    }
+
+    @Test
     void isSymbol_period() {
         assertThat(underTest.isSymbol('.')).isFalse();
     }
