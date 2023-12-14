@@ -1,6 +1,6 @@
 package com.example.day3a;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.example.day3a.model.EngineSchematicLine;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +27,6 @@ class EngineSchematicAnalyzerTest {
     EngineSchematicAnalyzer underTest;
 
     // TODO:  Update tests
-    /*
     @Test
     void sumGearRatios_noInput() throws IOException {
         when(lineAnalyzer.sumGearRatios(null, null, null)).thenReturn(2);
@@ -39,23 +38,35 @@ class EngineSchematicAnalyzerTest {
 
     @Test
     void sumGearRatios_oneLine() throws IOException {
-        when(lineAnalyzer.sumGearRatios(null, "one", null)).thenReturn(5);
+        EngineSchematicLine firstLine = new EngineSchematicLine();
+        BufferedReader reader = new BufferedReader(new StringReader("one"));
+        when(lineReader.readLine(reader))
+                .thenReturn(firstLine)
+                .thenReturn(null);
+        when(lineAnalyzer.sumGearRatios(null, firstLine, null)).thenReturn(5);
 
-        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("one")));
+        int actual = underTest.sumGearRatios(reader);
 
         assertThat(actual).isEqualTo(5);
     }
 
-
     @Test
-    void sumGearRatios_twoLines() throws IOException {
-        when(lineAnalyzer.sumGearRatios(null, "one", "two")).thenReturn(3);
-        when(lineAnalyzer.sumGearRatios("one", "two", "three")).thenReturn(5);
-        when(lineAnalyzer.sumGearRatios( "two", "three", null)).thenReturn(8);
+    void sumGearRatios_threeLines() throws IOException {
+        EngineSchematicLine firstLine = new EngineSchematicLine();
+        EngineSchematicLine secondLine = new EngineSchematicLine();
+        EngineSchematicLine thirdLine = new EngineSchematicLine();
+        BufferedReader reader = new BufferedReader(new StringReader("one"));
+        when(lineReader.readLine(reader))
+                .thenReturn(firstLine)
+                .thenReturn(secondLine)
+                .thenReturn(thirdLine)
+                .thenReturn(null);
+        when(lineAnalyzer.sumGearRatios(null, firstLine, secondLine)).thenReturn(1);
+        when(lineAnalyzer.sumGearRatios(firstLine, secondLine, thirdLine)).thenReturn(2);
+        when(lineAnalyzer.sumGearRatios(secondLine, thirdLine, null)).thenReturn(3);
 
-        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("one\ntwo\nthree")));
+        int actual = underTest.sumGearRatios(reader);
 
-        assertThat(actual).isEqualTo(16);
+        assertThat(actual).isEqualTo(6);
     }
-     */
 }
