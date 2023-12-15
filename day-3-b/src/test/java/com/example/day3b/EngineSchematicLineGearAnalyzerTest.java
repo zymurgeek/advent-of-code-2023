@@ -10,13 +10,13 @@ import java.util.regex.MatchResult;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class EngineEngineSchematicLinePartNumberAnalyzerTest {
+class EngineSchematicLineGearAnalyzerTest {
 
-    EngineSchematicLinePartNumberAnalyzer underTest;
+    EngineSchematicLineGearAnalyzer underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new EngineSchematicLinePartNumberAnalyzer();
+        underTest = new EngineSchematicLineGearAnalyzer();
     }
 
     @Test
@@ -152,5 +152,10 @@ class EngineEngineSchematicLinePartNumberAnalyzerTest {
     @Test
     void isSymbol_ampersand() {
         assertThat(underTest.isSymbol('&')).isTrue();
+    }
+
+    @Test
+    void getConnectedPartNumbers_nullLine() {
+        assertThat(underTest.getConnectedPartNumbers(null, null)).isEmpty();
     }
 }

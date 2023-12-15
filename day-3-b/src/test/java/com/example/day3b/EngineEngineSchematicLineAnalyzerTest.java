@@ -7,51 +7,80 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EngineEngineSchematicLineAnalyzerTest {
 
     @Mock
-    EngineSchematicLinePartNumberAnalyzer partNumberAnalyzer;
+    EngineSchematicLineGearAnalyzer gearAnalyzer;
+
+    final EngineSchematicLine previousLine = new EngineSchematicLine("previous", null);
+    EngineSchematicLine currentLine = new EngineSchematicLine("current *", null);
+    final EngineSchematicLine nextLine = new EngineSchematicLine("next", null);
 
     EngineSchematicLineAnalyzer underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new EngineSchematicLineAnalyzer(partNumberAnalyzer);
+        underTest = new EngineSchematicLineAnalyzer(gearAnalyzer);
     }
-/*
+
     @Test
-    void sumPartNumbers_noPartNumbers() {
-        EngineSchematicLine previousLine = new EngineSchematicLine();
-        EngineSchematicLine currentLine = new EngineSchematicLine();
-        EngineSchematicLine nextLine = new EngineSchematicLine();
+    void sumGearRatios_noGears() {
+        currentLine = new EngineSchematicLine("", null);
+
         assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(0);
     }
 
     @Test
-    void sumPartNumbers_onePartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b"), eq("c"))).thenReturn(true);
+    void sumGearRatios_oneGear_noConnectedPartNumbers() {
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(previousLine))).thenReturn(List.of());
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(currentLine))).thenReturn(List.of());
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(nextLine))).thenReturn(List.of());
 
-        assertThat(underTest.sumGearRatios("a", "b123b", "c")).isEqualTo(123);
+        assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(0);
     }
 
     @Test
-    void sumPartNumbers_oneNonPartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b"), eq("c"))).thenReturn(false);
+    void sumGearRatios_oneGear_oneConnectedPartNumbers() {
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(previousLine))).thenReturn(List.of(7 ));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(currentLine))).thenReturn(List.of());
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(nextLine))).thenReturn(List.of());
 
-        assertThat(underTest.sumGearRatios("a", "b123b", "c")).isEqualTo(0);
+        assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(0);
     }
 
     @Test
-    void sumPartNumbers_twoNumbers_secondIsPartNumber() {
-        when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b456b"), eq("c")))
-                .thenReturn(false).thenReturn(true);
+    void sumGearRatios_oneGear_twoConnectedPartNumbers() {
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(previousLine))).thenReturn(List.of(7 ));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(currentLine))).thenReturn(List.of(8));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(nextLine))).thenReturn(List.of());
 
-        assertThat(underTest.sumGearRatios("a", "b123b456b", "c")).isEqualTo(456);
+        assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(56);
     }
- */
+
+    @Test
+    void sumGearRatios_oneGear_threeConnectedPartNumbers() {
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(previousLine))).thenReturn(List.of(7 ));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(currentLine))).thenReturn(List.of(8));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(nextLine))).thenReturn(List.of(9));
+
+        assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(0);
+    }
+
+    @Test
+    void sumGearRatios_twoGears_oneConnected() {
+        currentLine = new EngineSchematicLine("**", null);
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(previousLine))).thenReturn(List.of(7 )).thenReturn(List.of());
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(currentLine))).thenReturn(List.of(8));
+        when(gearAnalyzer.getConnectedPartNumbers(any(), eq(nextLine))).thenReturn(List.of(9));
+
+        assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(72);
+    }
 }

@@ -1,11 +1,13 @@
 package com.example.day3b;
 
+import com.example.day3b.model.EngineSchematicLine;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.regex.MatchResult;
 
 @Component
-public class EngineSchematicLinePartNumberAnalyzer {
+public class EngineSchematicLineGearAnalyzer {
     /*
     If a symbol (not a digit or period) exists above, below, to the right, to the left, or diagonally from any
     digit in the number, include the value of the number in the result.
@@ -40,5 +42,19 @@ public class EngineSchematicLinePartNumberAnalyzer {
 
     public boolean isSymbol(char c) {
         return (c < '0' || c > '9') && c != '.';
+    }
+
+    public List<Integer> getConnectedPartNumbers(MatchResult match, EngineSchematicLine line) {
+
+//            if (partNumberAnalyzer.isPartNumber(match, previousLine, currentLine, nextLine)) {
+//                String partNumberString = currentLine.substring(match.start(), match.end());
+//                int partNumber = Integer.parseInt(partNumberString);
+//                result += partNumber;
+//            } else {
+//                for (int charIndex = match.start(); charIndex < match.end(); ++charIndex) {
+//                    editedCurrentLine.setCharAt(charIndex, '0');
+//                }
+//            }
+        return List.of();
     }
 }
