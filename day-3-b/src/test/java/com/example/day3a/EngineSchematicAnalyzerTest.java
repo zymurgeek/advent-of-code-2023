@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -23,15 +22,18 @@ class EngineSchematicAnalyzerTest {
     @Mock
     EngineSchematicLineAnalyzer lineAnalyzer;
 
+    @Mock
+    BufferedReader reader;
+
     @InjectMocks
     EngineSchematicAnalyzer underTest;
 
-    // TODO:  Update tests
     @Test
     void sumGearRatios_noInput() throws IOException {
+        when(lineReader.readLine(reader)).thenReturn(null);
         when(lineAnalyzer.sumGearRatios(null, null, null)).thenReturn(2);
 
-        int actual = underTest.sumGearRatios(new BufferedReader(new StringReader("")));
+        int actual = underTest.sumGearRatios(reader);
 
        assertThat(actual).isEqualTo(2);
     }
@@ -39,7 +41,6 @@ class EngineSchematicAnalyzerTest {
     @Test
     void sumGearRatios_oneLine() throws IOException {
         EngineSchematicLine firstLine = new EngineSchematicLine();
-        BufferedReader reader = new BufferedReader(new StringReader("one"));
         when(lineReader.readLine(reader))
                 .thenReturn(firstLine)
                 .thenReturn(null);
@@ -55,7 +56,6 @@ class EngineSchematicAnalyzerTest {
         EngineSchematicLine firstLine = new EngineSchematicLine();
         EngineSchematicLine secondLine = new EngineSchematicLine();
         EngineSchematicLine thirdLine = new EngineSchematicLine();
-        BufferedReader reader = new BufferedReader(new StringReader("one"));
         when(lineReader.readLine(reader))
                 .thenReturn(firstLine)
                 .thenReturn(secondLine)
