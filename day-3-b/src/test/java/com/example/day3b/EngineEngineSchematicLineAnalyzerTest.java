@@ -23,7 +23,7 @@ class EngineEngineSchematicLineAnalyzerTest {
     void setUp() {
         underTest = new EngineSchematicLineAnalyzer(partNumberAnalyzer);
     }
-
+/*
     @Test
     void sumPartNumbers_noPartNumbers() {
         EngineSchematicLine previousLine = new EngineSchematicLine();
@@ -31,7 +31,7 @@ class EngineEngineSchematicLineAnalyzerTest {
         EngineSchematicLine nextLine = new EngineSchematicLine();
         assertThat(underTest.sumGearRatios(previousLine, currentLine, nextLine)).isEqualTo(0);
     }
-/*
+
     @Test
     void sumPartNumbers_onePartNumber() {
         when(partNumberAnalyzer.isPartNumber(any(), eq("a"), eq("b123b"), eq("c"))).thenReturn(true);

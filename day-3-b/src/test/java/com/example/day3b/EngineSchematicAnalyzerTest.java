@@ -23,6 +23,15 @@ class EngineSchematicAnalyzerTest {
     EngineSchematicLineAnalyzer lineAnalyzer;
 
     @Mock
+    EngineSchematicLine firstLine;
+
+    @Mock
+    EngineSchematicLine secondLine;
+
+    @Mock
+    EngineSchematicLine thirdLine;
+
+    @Mock
     BufferedReader reader;
 
     @InjectMocks
@@ -40,7 +49,6 @@ class EngineSchematicAnalyzerTest {
 
     @Test
     void sumGearRatios_oneLine() throws IOException {
-        EngineSchematicLine firstLine = new EngineSchematicLine();
         when(lineReader.readLine(reader))
                 .thenReturn(firstLine)
                 .thenReturn(null);
@@ -53,9 +61,6 @@ class EngineSchematicAnalyzerTest {
 
     @Test
     void sumGearRatios_threeLines() throws IOException {
-        EngineSchematicLine firstLine = new EngineSchematicLine();
-        EngineSchematicLine secondLine = new EngineSchematicLine();
-        EngineSchematicLine thirdLine = new EngineSchematicLine();
         when(lineReader.readLine(reader))
                 .thenReturn(firstLine)
                 .thenReturn(secondLine)
