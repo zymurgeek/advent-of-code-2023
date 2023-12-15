@@ -1,6 +1,6 @@
-package com.example.day3a;
+package com.example.day3b;
 
-import com.example.day3a.model.EngineSchematicLine;
+import com.example.day3b.model.EngineSchematicLine;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.example.day3a.model;
+package com.example.day3b.model;
 
 public class EngineSchematicLine {
 }

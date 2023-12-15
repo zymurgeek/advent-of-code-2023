@@ -1,6 +1,6 @@
-package com.example.day3a;
+package com.example.day3b;
 
-import com.example.day3a.model.EngineSchematicLine;
+import com.example.day3b.model.EngineSchematicLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EngineEngineSchematicLineAnalyzerTest {

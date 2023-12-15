@@ -1,4 +1,4 @@
-package com.example.day3a;
+package com.example.day3b;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

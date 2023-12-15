@@ -1,4 +1,4 @@
-package com.example.day3a;
+package com.example.day3b;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
