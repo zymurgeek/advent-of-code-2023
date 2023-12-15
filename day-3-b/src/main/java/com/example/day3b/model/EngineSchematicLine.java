@@ -5,7 +5,7 @@ import java.util.regex.MatchResult;
 
 public record EngineSchematicLine(String text, List<MatchResult> partNumberMatches) {
 
-    int getPartNumber(MatchResult partNumberMatch) {
+    public int getPartNumber(MatchResult partNumberMatch) {
         if (null == partNumberMatch) {
             return 0;
         }

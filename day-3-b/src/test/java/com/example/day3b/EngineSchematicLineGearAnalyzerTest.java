@@ -1,11 +1,12 @@
 package com.example.day3b;
 
+import com.example.day3b.model.EngineSchematicLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.regex.MatchResult;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,142 +21,85 @@ class EngineSchematicLineGearAnalyzerTest {
     }
 
     @Test
-    void isPartNumber_noSymbols_noEastOrWest_noPreviousAndNext() {
-        MatchResult match = new TestMatchResult(0,1);
-        String previousLine = null;
-        String currentLine = "1";
-        String nextLine = null;
+    void getConnectedPartNumbers_invalidGearIndex() {
+        EngineSchematicLine line = new EngineSchematicLine("line", List.of(new TestMatchResult(1, 2)));
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+        assertThat(underTest.getConnectedPartNumbers(-1, line)).isEmpty();
     }
 
     @Test
-    void isPartNumber_noSymbols_noEastOrWest_withPreviousAndNext() {
-        MatchResult match = new TestMatchResult(0,1);
-        String previousLine = ".";
-        String currentLine = "1";
-        String nextLine = ".";
-
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+    void getConnectedPartNumbers_noLine() {
+        assertThat(underTest.getConnectedPartNumbers(0, null)).isEmpty();
     }
 
     @Test
-    void isPartNumber_noSymbols_withEastOrWest_noPreviousAndNext() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = null;
-        String currentLine = ".1.";
-        String nextLine = null;
+    void getConnectedPartNumbers_noPartNumbers() {
+        EngineSchematicLine lineWithoutPartNumbers = new EngineSchematicLine("line", null);
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+        assertThat(underTest.getConnectedPartNumbers(0, lineWithoutPartNumbers)).isEmpty();
     }
 
     @Test
-    void isPartNumber_noSymbols_withEastOrWest_withPreviousAndNext() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "...";
-        String currentLine = ".1.";
-        String nextLine = "...";
+    void getConnectedPartNumbers_oneConnectedPartNumber() {
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 3);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".12.",
+                List.of(partNumber1Match));
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isFalse();
+        assertThat(underTest.getConnectedPartNumbers(1, lineWithOnePartNumber)).containsExactly(12);
     }
 
     @Test
-    void isPartNumber_symbolNorthWest() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "@..";
-        String currentLine = ".1.";
-        String nextLine = "...";
+    void getConnectedPartNumbers_twoConnectedPartNumbers() {
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 2);
+        TestMatchResult partNumber2Match = new TestMatchResult(3, 4);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".123.",
+                List.of(partNumber1Match, partNumber2Match));
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+        assertThat(underTest.getConnectedPartNumbers(2, lineWithOnePartNumber)).containsExactly(1, 3);
     }
 
     @Test
-    void isPartNumber_symbolSouthWest() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "...";
-        String currentLine = ".1.";
-        String nextLine = "@..";
+    void getConnectedPartNumbers_gearJustBeforePartNumber() {
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 2);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".1.", List.of(partNumber1Match));
+
+        assertThat(underTest.getConnectedPartNumbers(0, lineWithOnePartNumber)).containsExactly(1);
     }
 
     @Test
-    void isPartNumber_symbolNorthEast() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "..@";
-        String currentLine = ".1.";
-        String nextLine = "...";
+    void getConnectedPartNumbers_gearInPartNumber() {
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 2);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".1.", List.of(partNumber1Match));
+
+        assertThat(underTest.getConnectedPartNumbers(1, lineWithOnePartNumber)).containsExactly(1);
     }
 
     @Test
-    void isPartNumber_symbolSouthEast() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "...";
-        String currentLine = ".1.";
-        String nextLine = "..@";
+    void getConnectedPartNumbers_gearJustAfterPartNumber() {
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 2);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".1.", List.of(partNumber1Match));
+
+        assertThat(underTest.getConnectedPartNumbers(2, lineWithOnePartNumber)).containsExactly(1);
     }
 
     @Test
-    void isPartNumber_symbolWest() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "...";
-        String currentLine = "@1.";
-        String nextLine = "...";
+    void getConnectedPartNumbers_gearTooFarBeforePartNumber() {
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
+        TestMatchResult partNumber1Match = new TestMatchResult(2, 3);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine("..2.", List.of(partNumber1Match));
+
+        assertThat(underTest.getConnectedPartNumbers(0, lineWithOnePartNumber)).isEmpty();
     }
 
     @Test
-    void isPartNumber_symbolEast() {
-        MatchResult match = new TestMatchResult(1,2);
-        String previousLine = "...";
-        String currentLine = ".1@";
-        String nextLine = "...";
+    void getConnectedPartNumbers_tooFarAfterPartNumber() {
 
-        assertThat(underTest.isPartNumber(match, previousLine, currentLine, nextLine)).isTrue();
-    }
+        TestMatchResult partNumber1Match = new TestMatchResult(1, 2);
+        EngineSchematicLine lineWithOnePartNumber = new EngineSchematicLine(".1..", List.of(partNumber1Match));
 
-    @Test
-    void isSymbol_period() {
-        assertThat(underTest.isSymbol('.')).isFalse();
-    }
-
-    @Test
-    void isSymbol_zero() {
-        assertThat(underTest.isSymbol('0')).isFalse();
-    }
-
-    @Test
-    void isSymbol_one() {
-        assertThat(underTest.isSymbol('1')).isFalse();
-    }
-
-    @Test
-    void isSymbol_two() {
-        assertThat(underTest.isSymbol('2')).isFalse();
-    }
-
-    @Test
-    void isSymbol_eight() {
-        assertThat(underTest.isSymbol('8')).isFalse();
-    }
-
-    @Test
-    void isSymbol_nine() {
-        assertThat(underTest.isSymbol('9')).isFalse();
-    }
-
-    @Test
-    void isSymbol_ampersand() {
-        assertThat(underTest.isSymbol('&')).isTrue();
-    }
-
-    @Test
-    void getConnectedPartNumbers_nullLine() {
-        assertThat(underTest.getConnectedPartNumbers(null, null)).isEmpty();
+        assertThat(underTest.getConnectedPartNumbers(3, lineWithOnePartNumber)).isEmpty();
     }
 }

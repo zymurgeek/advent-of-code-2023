@@ -21,17 +21,18 @@ public class EngineSchematicLineAnalyzer {
 
         // look for gears in current line
         Scanner scanner = new Scanner(currentLine.text());
-        List<MatchResult> matches = scanner.findAll("\\*").toList();
+        List<MatchResult> gearMatches = scanner.findAll("\\*").toList();
 
         // for each gear found
-        for (MatchResult match : matches) {
+        for (MatchResult gearMatch : gearMatches) {
             System.out.print("*");
 
             // find all part numbers in each of the lines that are connected to the gear
             List<Integer> connectedPartNumbers = new ArrayList<>();
-            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(match, previousLine));
-            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(match, currentLine));
-            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(match, nextLine));
+            int gearIndex = gearMatch.start();
+            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(gearIndex, previousLine));
+            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(gearIndex, currentLine));
+            connectedPartNumbers.addAll(gearAnalyzer.getConnectedPartNumbers(gearIndex, nextLine));
 
             if (connectedPartNumbers.size() == 2) {
                 // If there are exactly two connected part numbers, add their product to the result
@@ -39,7 +40,7 @@ public class EngineSchematicLineAnalyzer {
                 Integer second = connectedPartNumbers.get(1);
                 int ratio = first * second;
                 result +=  first * second;
-                System.out.print("=" + ratio + " ");
+                System.out.print("[" + first + "x" + second + "=" + ratio + "] ");
             } else {
                 System.out.print("(" + connectedPartNumbers.size() + ") ");
             }
