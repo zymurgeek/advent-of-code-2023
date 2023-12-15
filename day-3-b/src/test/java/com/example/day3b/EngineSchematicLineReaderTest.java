@@ -32,7 +32,7 @@ class EngineSchematicLineReaderTest {
         EngineSchematicLine actual = underTest.readLine(line);
 
         assertThat(actual.text()).isEqualTo(lineText);
-        assertThat(actual.matches()).map(m -> tuple(m.start(), m.end()))
+        assertThat(actual.partNumberMatches()).map(m -> tuple(m.start(), m.end()))
                 .containsExactly(tuple(0,2));
     }
 
@@ -44,7 +44,7 @@ class EngineSchematicLineReaderTest {
         EngineSchematicLine actual = underTest.readLine(line);
 
         assertThat(actual.text()).isEqualTo(lineText);
-        assertThat(actual.matches()).map(m -> tuple(m.start(), m.end()))
+        assertThat(actual.partNumberMatches()).map(m -> tuple(m.start(), m.end()))
                 .containsExactly(tuple(1,3), tuple(4,6));
     }
 }
