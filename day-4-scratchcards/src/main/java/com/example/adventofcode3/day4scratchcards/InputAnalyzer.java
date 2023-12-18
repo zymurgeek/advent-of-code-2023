@@ -15,8 +15,10 @@ public class InputAnalyzer {
     public int sumPointsOfCards(BufferedReader input) {
 
         return input.lines()
+                .peek(l -> System.out.print(l + " = "))
                 .map(parser::parse)
                 .mapToInt(analyzer::points)
+                .peek(System.out::println)
                 .sum();
     }
 }
