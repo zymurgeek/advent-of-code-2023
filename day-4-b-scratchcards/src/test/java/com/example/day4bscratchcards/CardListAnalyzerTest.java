@@ -79,6 +79,20 @@ class CardListAnalyzerTest {
     }
 
     @Test
+    void addWinningCards_threeCards_twoWinners() {
+
+        List<Card> cardList = List.of(card1, card2, card3);
+        when(analyzer.getCountOfWinningNumbers(card1)).thenReturn(1);
+        when(card1.getCount()).thenReturn(42);
+
+        underTest.addWinningCards(cardList);
+
+        assertThat(cardList).containsExactly(card1, card2, card3);
+        verify(card2).addCopies(42);
+        verifyNoInteractions(card3);
+    }
+
+    @Test
     void addWinningCards_example() {
 
         List<Card> cardList = List.of(card1, card2, card3, card4, card5, card6);

@@ -15,18 +15,17 @@ public class CardListAnalyzer {
 
     public void addWinningCards(List<Card> cardList) {
 
-        ListIterator<Card> listItor = cardList.listIterator();
-        while (listItor.hasNext()) {
-            Card thisCard = listItor.next();
+        ListIterator<Card> listIterator = cardList.listIterator();
+        while (listIterator.hasNext()) {
+            Card thisCard = listIterator.next();
             int countOfWinningNumbers = analyzer.getCountOfWinningNumbers(thisCard);
             if (countOfWinningNumbers > 0) {
-                int copiesToAdd = thisCard.getCount();
-                ListIterator<Card> gettingCardsItor = cardList.listIterator(listItor.nextIndex());
+                ListIterator<Card> extraCardsIterator = cardList.listIterator(listIterator.nextIndex());
+                int copiesToAddToEachCard = thisCard.getCount();
                 do {
-                    Card addCopiesToCard = gettingCardsItor.next();
-                    addCopiesToCard.addCopies(copiesToAdd);
-                }
-                while (gettingCardsItor.hasNext());
+                    Card cardToGetCopies = extraCardsIterator.next();
+                    cardToGetCopies.addCopies(copiesToAddToEachCard);
+                } while (--countOfWinningNumbers > 0);
             }
         }
 
