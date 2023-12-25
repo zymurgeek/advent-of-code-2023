@@ -20,8 +20,8 @@ class InputParserTest {
     @Mock
     CardParser cardParser;
 
-    final Card card1 = new Card();
-    final Card card2 = new Card();
+    final Card card1 = new Card(1, null, null);
+    final Card card2 = new Card(2, null, null);
 
     @InjectMocks
     InputParser underTest;

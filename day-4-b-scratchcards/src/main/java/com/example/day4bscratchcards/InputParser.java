@@ -16,8 +16,9 @@ public class InputParser {
     public List<Card> parseLines(BufferedReader input) {
 
         return input.lines()
-                .peek(l -> System.out.print(l + " = "))
+                .peek(l -> System.out.print(l + " -> "))
                 .map(parser::parse)
+                .peek(System.out::println)
                 .toList();
     }
 }
