@@ -2,6 +2,7 @@ package com.example.day4bscratchcards;
 
 import com.example.day4bscratchcards.model.Card;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@Slf4j
 public class Day4BScratchcardsApplication implements CommandLineRunner {
 
 	private final InputParser inputParser;
@@ -30,6 +32,6 @@ public class Day4BScratchcardsApplication implements CommandLineRunner {
 		List<Card> cardList = inputParser.parseLines(input);
 		listAnalyzer.addWinningCards(cardList);
 		int cards = listAnalyzer.sumCards(cardList);
-		System.out.println("Total of all cards = " + cards);
+		log.info("Total of all cards = " + cards);
 	}
 }
