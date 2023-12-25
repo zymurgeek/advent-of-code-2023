@@ -14,6 +14,7 @@ public class Card {
     private List<Integer> playerNumbers;
 
     public Card(int id, Set<Integer> winningNumbers, List<Integer> playerNumbers) {
+
         this.id = id;
         this.count = 1;
         this.winningNumbers = winningNumbers;
@@ -21,6 +22,6 @@ public class Card {
     }
 
     public void addCopies(int numberOfCards) {
-
+        this.count += numberOfCards;
     }
 }
