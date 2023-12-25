@@ -26,8 +26,8 @@ public class Day4BScratchcardsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		String inputFileName = // "src/main/resources/input.txt";
-				"src/main/resources/example-input.txt";
+		String inputFileName = "src/main/resources/input.txt";
+				// "src/main/resources/example-input.txt";
 		BufferedReader input = new BufferedReader(new FileReader(inputFileName));
 		List<Card> cardList = inputParser.parseLines(input);
 		listAnalyzer.addWinningCards(cardList);

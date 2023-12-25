@@ -34,6 +34,7 @@ public class CardListAnalyzer {
     public int sumCards(List<Card> cardList) {
 
         return cardList.stream()
+                .peek(c -> System.out.println(c + " winning numbers=" + analyzer.getCountOfWinningNumbers(c)))
                 .mapToInt(Card::getCount)
                 .sum();
     }
