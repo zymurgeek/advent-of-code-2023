@@ -31,8 +31,10 @@ public class CardListAnalyzer {
 
     }
 
-    //		- result = CardListAnalyzer.sumCards(list): Calculate result as the sum of the count of each card
     public int sumCards(List<Card> cardList) {
-        return 0;
+
+        return cardList.stream()
+                .mapToInt(Card::getCount)
+                .sum();
     }
 }

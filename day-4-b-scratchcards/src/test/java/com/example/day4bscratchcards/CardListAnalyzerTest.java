@@ -121,4 +121,28 @@ class CardListAnalyzerTest {
         verify(card5).addCopies(8);
         verifyNoInteractions(card6);
     }
+
+    @Test
+    void sumCards_oneCard() {
+
+        List<Card> cardList = List.of(card1);
+        when(card1.getCount()).thenReturn(7);
+
+        int actual = underTest.sumCards(cardList);
+
+        assertThat(actual).isEqualTo(7);
+    }
+
+    @Test
+    void sumCards_threeCards() {
+
+        List<Card> cardList = List.of(card1, card2, card3);
+        when(card1.getCount()).thenReturn(2);
+        when(card2.getCount()).thenReturn(3);
+        when(card3.getCount()).thenReturn(5);
+
+        int actual = underTest.sumCards(cardList);
+
+        assertThat(actual).isEqualTo(10);
+    }
 }
