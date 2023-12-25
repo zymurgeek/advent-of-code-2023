@@ -1,17 +1,34 @@
 package com.example.day4bscratchcards;
 
 import com.example.day4bscratchcards.model.Card;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.ListIterator;
 
 @Component
+@RequiredArgsConstructor
 public class CardListAnalyzer {
 
-    //		- CardListAnalyzer.addWinningCards(list): Go through the list of cards and for each:
-    //			- Calculate count of winning numbers
-    //			- for each "winning count" cards following the current one, increase that card's count by current card count
+    private final CardAnalyzer analyzer;
+
     public void addWinningCards(List<Card> cardList) {
+
+        ListIterator<Card> listItor = cardList.listIterator();
+        while (listItor.hasNext()) {
+            Card thisCard = listItor.next();
+            int countOfWinningNumbers = analyzer.getCountOfWinningNumbers(thisCard);
+            if (countOfWinningNumbers > 0) {
+                int copiesToAdd = thisCard.getCount();
+                ListIterator<Card> gettingCardsItor = cardList.listIterator(listItor.nextIndex());
+                do {
+                    Card addCopiesToCard = gettingCardsItor.next();
+                    addCopiesToCard.addCopies(copiesToAdd);
+                }
+                while (gettingCardsItor.hasNext());
+            }
+        }
 
     }
 

@@ -19,4 +19,8 @@ public class Card {
         this.winningNumbers = winningNumbers;
         this.playerNumbers = playerNumbers;
     }
+
+    public void addCopies(int numberOfCards) {
+
+    }
 }
